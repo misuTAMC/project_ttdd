@@ -14,16 +14,7 @@ void main() async {
         projectId: "tinhtoandidong-d59ac",
       ),
     );
-  } else {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyAlPf29itctx6XJ84ESYmIBDMwV_VKSyrM",
-        appId: "1:264286272522:web:ac308477878b527642f3f3",
-        messagingSenderId: "264286272522",
-        projectId: "tinhtoandidong-d59ac",
-      ),
-    );
-  }
+  } else {}
 
   runApp(const MyApp());
 }
@@ -33,11 +24,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: WelComeScreen(),
-      ),
+      home: WelComeScreen(),
     );
   }
 }

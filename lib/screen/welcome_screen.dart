@@ -69,7 +69,7 @@ class _WelComeScreenState extends State<WelComeScreen> {
                         },
                         transitionDuration: const Duration(
                             seconds:
-                                2), // Thêm dòng này để điều chỉnh thời gian chuyển trang
+                                2), 
                       ),
                     );
                   },
