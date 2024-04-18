@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "264286272522",
+    "project_id": "tinhtoandidong-d59ac",
+    "storage_bucket": "tinhtoandidong-d59ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264286272522:android:75142973980570f742f3f3",
+        "android_client_info": {
+          "package_name": "com.example.project_cuoi_ki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMJpoQ3MxKM4-zOxnMenp2-3oCqv_lbXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
