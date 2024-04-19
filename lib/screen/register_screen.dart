@@ -2,19 +2,21 @@ import 'dart:ui';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_cuoi_ki/controller/auth_controller.dart';
 import 'package:project_cuoi_ki/widgets/custom_button.dart';
 
 import 'Otps_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class RegisterScreen extends ConsumerStatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
 
   Country selectedCountry = Country(
@@ -30,10 +32,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     e164Key: "",
   );
   @override
+  void dispose() {
+    phoneNumberController.dispose();
+    super.dispose();
+  }
+
+  void sendPhoneNumber() {
+    String phoneNumber = phoneNumberController.text.trim();
+    if (phoneNumber.isNotEmpty) {
+      ref.read(authControllerProvider).signInWithPhoneInAuthController(
+          context, "+${selectedCountry.phoneCode}$phoneNumber");
+      //*Provider ref->Interact with provider
+      //*Wiget ref->make widget interact with provider
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     phoneNumberController.selection = TextSelection.fromPosition(
       TextPosition(offset: phoneNumberController.text.length),
     );
+   
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -127,10 +146,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   ),
                                 ),
-                                onSelect: (value) {
+                                onSelect: (Country country) {
                                   setState(
                                     () {
-                                      selectedCountry = value;
+                                      selectedCountry = country;
                                     },
                                   );
                                 },
@@ -216,30 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     );
                                   },
                                 )
-                              : Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        const OtpScreen(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      var begin = const Offset(0.0, 1.0);
-                                      var end = Offset.zero;
-                                      var curve = Curves.ease;
-
-                                      var tween = Tween(begin: begin, end: end)
-                                          .chain(CurveTween(curve: curve));
-
-                                      return SlideTransition(
-                                        position: animation.drive(tween),
-                                        child: child,
-                                      );
-                                    },
-                                    transitionDuration:
-                                        const Duration(seconds: 2),
-                                  ),
-                                );
+                              : sendPhoneNumber();
                         },
                       ),
                     ),
